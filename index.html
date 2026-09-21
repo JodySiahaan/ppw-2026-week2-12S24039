@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portofolio & Layanan - Jody Alfonso Siahaan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Skip Link untuk Aksesibilitas Keyboard -->
+  <a href="#main-content" class="skip-link">Lompat ke Konten Utama</a>
+
+  <!-- Navigation Bar -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">Jody Alfonso S.</div>
+      <nav>
+        <ul>
+          <li><a href="#tentang">Tentang Saya</a></li>
+          <li><a href="#portofolio">Portofolio</a></li>
+          <li><a href="#kontak">Konsultasi</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero">
+    <h1>Halo, Saya Jody Alfonso Siahaan</h1>
+    <p>Mahasiswa Sistem Informasi | Network & Cybersecurity | UI/UX & Java Developer</p>
+  </section>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container layout-grid">
+
+      <!-- Konten Utama -->
+      <div class="main-body">
+
+        <!-- Section 1: Tentang Saya -->
+        <section id="tentang" class="card">
+          <h2>1. Tentang Saya</h2>
+          <p>
+            Saya adalah mahasiswa Sistem Informasi di Institut Teknologi Del yang berfokus pada pengembangan perangkat lunak Java, analisis jaringan & keamanan siber (cybersecurity), serta perancangan UI/UX berbasis Figma.
+          </p>
+
+          <h3>Keahlian Utama:</h3>
+          <ul>
+            <li>Pemrograman Java (OOP, Data Structures)</li>
+            <li>Analisis Jaringan (Wireshark, Packet Capture, DNS)</li>
+            <li>Desain UI/UX & Prototyping (Figma)</li>
+            <li>Python, Machine Learning & Prompt Engineering</li>
+          </ul>
+
+          <h3>Alur Kerja Proyek:</h3>
+          <ol>
+            <li>Analisis kebutuhan & identifikasi masalah pengguna.</li>
+            <li>Perancangan wireframe dan UI/UX interaktif.</li>
+            <li>Implementasi kode program & pengujian keamanan/jaringan.</li>
+            <li>Evaluasi akhir dan dokumentasi sistem.</li>
+          </ol>
+        </section>
+
+        <!-- Section 2: Portofolio & Capaian (Tabel Semantik) -->
+        <section id="portofolio" class="card">
+          <h2>2. Portofolio Karya & Capaian</h2>
+          <div class="table-responsive">
+            <table>
+              <caption>Daftar Proyek Utama dan Capaian Teknis</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Nama Proyek / Kegiatan</th>
+                  <th scope="col">Kategori</th>
+                  <th scope="col">Teknologi / Platform</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">NetGuard-AI</th>
+                  <td>Network & Cyber Security</td>
+                  <td>Python, Wireshark Analysis</td>
+                  <td>Selesai</td>
+                </tr>
+                <tr>
+                  <th scope="row">SI Loket PT Parisma Jaya Trans</th>
+                  <td>UI/UX & System Design</td>
+                  <td>Figma, System Flow</td>
+                  <td>Selesai</td>
+                </tr>
+                <tr>
+                  <tr scope="row">Fintech Wallet Application</tr>
+                  <td>Software Development</td>
+                  <td>Java OOP, Exception Handling</td>
+                  <td>Dalam Pengembangan</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="4">Total Proyek Terdata: 3 Proyek Utama</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </section>
+
+        <!-- Section 3: Formulir Konsultasi -->
+        <section id="kontak" class="card">
+          <h2>3. Layanan Konsultasi & Kontak</h2>
+          <form id="consultationForm">
+            
+            <fieldset>
+              <legend>Informasi Identitas Diri</legend>
+
+              <div class="form-group">
+                <label for="fullName">Nama Lengkap <span class="required">*</span></label>
+                <input type="text" id="fullName" name="fullName" required placeholder="Masukkan nama Anda">
+              </div>
+
+              <div class="form-group">
+                <label for="email">Alamat Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required placeholder="contoh@domain.com">
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Nomor WhatsApp/Telepon <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" required placeholder="08xxxxxxxxxx">
+              </div>
+
+              <div class="form-group">
+                <label for="age">Usia (Tahun)</label>
+                <input type="number" id="age" name="age" min="15" max="99" placeholder="20">
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Detail Kebutuhan Layanan</legend>
+
+              <div class="form-group">
+                <label for="serviceType">Jenis Layanan <span class="required">*</span></label>
+                <select id="serviceType" name="serviceType" required>
+                  <option value="">-- Pilih Jenis Layanan --</option>
+                  <option value="uiux">Desain UI/UX Figma</option>
+                  <option value="java">Pengembangan Aplikasi Java</option>
+                  <option value="network">Audit / Analisis Jaringan</option>
+                  <option value="other">Konsultasi Umum</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Preferensi Metode Komunikasi:</label>
+                <div class="radio-group">
+                  <label><input type="radio" name="contactPref" value="Email" checked> Email</label>
+                  <label><input type="radio" name="contactPref" value="WhatsApp"> WhatsApp</label>
+                  <label><input type="radio" name="contactPref" value="Zoom"> Zoom Meeting</label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Dokumen / Lampiran Siap Ditinjau:</label>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="docs" value="SRS"> Document Requirement (SRS)</label>
+                  <label><input type="checkbox" name="docs" value="Wireframe"> Wireframe / Core concept</label>
+                  <label><input type="checkbox" name="docs" value="Topology"> Diagram Jaringan</label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Pesan / Detail Proyek <span class="required">*</span></label>
+                <textarea id="message" name="message" rows="4" required placeholder="Jelaskan kebutuhan proyek Anda secara singkat..."></textarea>
+              </div>
+            </fieldset>
+
+            <button type="submit" class="btn-submit">Kirim Formulir Konsultasi</button>
+          </form>
+
+          <!-- Notifikasi Pesan Sukses Custom (Ganti Alert) -->
+          <div id="toast" class="toast hidden">
+            Formulir berhasil dikirim! Saya akan segera menghubungi Anda.
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Sidebar / Aside -->
+      <aside class="sidebar card">
+        <h3>Informasi Tambahan</h3>
+        <p><strong>Status:</strong> Terbuka untuk kolaborasi proyek UI/UX & Java.</p>
+        <hr>
+        <p><strong>Lokasi:</strong> Medan, Sumatera Utara, Indonesia</p>
+        <p><strong>Pendidikan:</strong> S1 Sistem Informasi - Institut Teknologi Del</p>
+        <hr>
+        <h4>Jam Kerja Konsultasi:</h4>
+        <p>Senin - Jumat: 09:00 - 17:00 WIB</p>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Jody Alfonso Siahaan. Seluruh hak cipta dilindungi.</p>
+    </div>
+  </footer>
+
+  <!-- Script sederhana untuk submit form tanpa alert() -->
+  <script>
+    document.getElementById('consultationForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const toast = document.getElementById('toast');
+      toast.classList.remove('hidden');
+      this.reset();
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 4000);
+    });
+  </script>
+</body>
+</html>
