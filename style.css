@@ -9,13 +9,13 @@
   --bg-card: #ffffff;
   --text-dark: #0f172a;
   --text-muted: #475569;
-  
+
   --primary-color: #0369a1;
   --primary-hover: #0284c7;
-  
+
   --accent-color: #059669;
   --accent-light: #e0f2fe;
-  
+
   --border-color: #cbd5e1;
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
@@ -128,7 +128,7 @@ nav a:hover {
 }
 
 /* ==========================================================================
-   5. LAYOUT GRID & KARTU
+   5. LAYOUT GRID & KARTU PROFIL
    ========================================================================== */
 .container {
   max-width: 1100px;
@@ -165,7 +165,7 @@ nav a:hover {
 }
 
 .card h3 {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   margin-bottom: 0.5rem;
   color: var(--text-dark);
 }
@@ -177,6 +177,70 @@ ul, ol {
 
 li {
   margin-bottom: 0.4rem;
+}
+
+/* Custom Profile Layout (Sesuai Contoh Gambar) */
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .profile-card {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.profile-avatar {
+  flex-shrink: 0;
+}
+
+.profile-avatar img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-info {
+  flex-grow: 1;
+}
+
+.badge-status {
+  display: inline-block;
+  background-color: #d1fae5;
+  color: #047857;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  margin-bottom: 0.5rem;
+}
+
+.profile-info h2 {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 0.25rem;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.profile-info h3 {
+  font-size: 1.25rem;
+  color: var(--text-dark);
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.profile-info p {
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
 }
 
 /* ==========================================================================
@@ -198,6 +262,7 @@ caption {
   font-weight: bold;
   margin-bottom: 0.5rem;
   color: var(--text-muted);
+  text-align: left;
 }
 
 th, td {
