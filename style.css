@@ -20,6 +20,13 @@ body {
   color: #333;
 }
 
+/* Melebarkan Kontainer Utama pada Layar Desktop / Wide Monitor */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
 /* Custom Overrides Navbar */
 .navbar-brand {
   color: var(--primary-color);
@@ -40,7 +47,9 @@ body {
 }
 
 /* Custom Card & Micro-Interactions */
-.project-card {
+.project-card,
+.info-card {
+  width: 100%;
   border-radius: var(--card-radius);
   border: 1px solid rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
