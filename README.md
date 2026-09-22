@@ -1,34 +1,48 @@
-# Portofolio Profesional - Jody Alfonso Siahaan
+# Refactoring Personal Portfolio & Services Website
 
-Proyek ini merupakan aplikasi web portofolio profesional satu halaman (*Single Page Application*) yang dirancang menggunakan HTML5 Semantik dan CSS3 Modern sesuai dengan standar WCAG 2.2 Level AA Accessibility.
+## Deskripsi Proyek
+Proyek ini merupakan pengembangan dan refactoring dari website portofolio pribadi (*Week 2*) menggunakan **Bootstrap 5.3** dan **Custom CSS Overrides** (*Week 3*). Aplikasi web ini dirancang untuk menampilkan profil pengembang, koleksi proyek/portofolio secara interaktif, serta formulir pengajuan layanan/kontak modern.
+
+Website disusun secara terstruktur dengan menerapkan sistem tata letak responsif (*12-column Grid*), komponen UI Bootstrap (Navbar Sticky, Kartu Portofolio, Modal Dialog, dan Floating Labels), serta konsistensi visual melalui penggunaan *CSS Variables* (`:root`) tanpa mengganggu *class* bawaan framework.
 
 ---
 
-## 📌 Fitur Utama
+## Identitas Pengembang
+- **Nama:** Jody Alfonso Siahaan
+- **NIM:** 12S24039
+- **Program Studi:** S1 Sistem Informasi
+- **Mata Kuliah:** Pemrograman dan Pengujian Web (12S3101)
+- **Tahun Akademik:** 2026/2027
 
-* **Struktur Semantik Lanjut:** Menggunakan elemen HTML5 seperti `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<aside>`, dan `<footer>`.
-* **Aksesibilitas Tinggi (WCAG 2.2 AA):**
-  * Fitur *Skip to main content* untuk pengguna *screen reader* dan navigasi *keyboard*.
-  * Kontras warna yang memenuhi standar keterbacaan tinggi.
-  * Indikator *focus visible* yang jelas pada setiap elemen interaktif.
-* **Aturan Warna 60-30-10:**
-  * **60% (Netral/Canvas):** Light background & kartu (`#f8fafc` & `#ffffff`).
-  * **30% (Sekunder/Primary):** Ocean Blue (`#0369a1` & `#0284c7`).
-  * **10% (Aksen):** Emerald Green (`#059669`) untuk tombol aksi dan *highlight* status.
-* **Tabel Semantik Berstandar:** Lengkap dengan `<caption>`, `<thead>`, `<tbody>`, `<tfoot>`, serta atribut `scope` (`col`/`row`).
-* **Formulir Konsultasi Interaktif:**
-  * Pengelompokan dengan `<fieldset>` dan `<legend>`.
-  * Menggunakan 8 jenis tipe input (`text`, `email`, `tel`, `number`, `select`, `radio`, `checkbox`, `textarea`).
-  * Umpan balik form (*toast notification*) tanpa menggunakan `alert()` native.
-* **Desain Responsif:** Menggunakan CSS Grid & Flexbox yang optimal untuk perangkat *mobile*, *tablet*, hingga *desktop*.
+---
+
+## 📌 Fitur Utama Website
+1. **Header & Navigasi Responsif**: Menggunakan Bootstrap Navbar Sticky dengan *hamburger toggle* untuk perangkat seluler.
+2. **Hero Section**: Tampilan penyambutan dengan integrasi profil dan latar belakang visual modern.
+3. **Portofolio Interaktif (Grid 12-Kolom)**: Menampilkan proyek-proyek berbasis UI/UX, Java OOP, Jaringan/Keamanan, dan Web Development.
+4. **Modal Dialog Detail**: Menampilkan rincian teknis tiap proyek saat tombol detail diklik tanpa berpindah halaman.
+5. **Formulir Layanan Modern**: Dilengkapi *Floating Labels*, *Input Groups* berikon, serta fitur validasi formulir langsung (*HTML5 & Bootstrap Validation*).
+6. **Mikro-Interaksi & Hover Effect**: Transisi animasi pada tombol dan *card lift effect* saat kursor diabaikan di atas elemen.
+
+---
+
+## Tabel Komparasi: Sebelum vs Sesudah Integrasi Framework
+
+| Fitur / Komponen | Sebelum (Minggu 2 - Plain HTML/CSS) | Sesudah (Minggu 3 - Bootstrap 5 & Custom CSS) |
+| :--- | :--- | :--- |
+| **Tata Letak (Layout)** | Manual CSS Flexbox/Float biasa | Bootstrap 12-Column Responsive Grid (`row-cols-*`, `col-lg-*`) |
+| **Navigasi** | Menu navigasi statis | Sticky Responsive Navbar dengan tombol *Hamburger Toggle Collapse* |
+| **Elemen Proyek** | Daftar proyek statis biasa | Kartu Interaktif (`.card`) lengkap dengan Badge Teknologi |
+| **Interaktivitas Detail** | Membuka link baru / halaman terpisah | Pop-up **Bootstrap Modal Dialog** tanpa berpindah halaman |
+| **Formulir Kontak** | Elemen `<input>` kustom polos | *Floating Labels* (`.form-floating`), *Input Groups* berikon, dan validasi visual (`.was-validated`) |
+| **Theming & Variabel** | Warna hardcoded | Terstandarisasi via **CSS Variables (`:root`)** |
 
 ---
 
 ## 📁 Struktur Berkas
-
 ```text
-portofolio-jody/
-├── index.html     # Berkas struktur utama HTML
-├── style.css      # Berkas styling CSS3
-├── profile.jpg    # Foto profil pengguna
-└── README.md      # Dokumentasi proyek
+ppw-2026-week2-12S24039/
+├── index.html          # Struktur HTML5 dengan Bootstrap 5.3 CDN
+├── custom-style.css    # Variabel CSS (:root) dan kustomisasi gaya
+├── profile.jpg         # Foto profil pengembang
+└── README.md           # Dokumentasi proyek & tabel komparasi
