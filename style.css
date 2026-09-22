@@ -81,6 +81,7 @@ body {
 }
 
 /* Custom Floating Label Focus state */
-.form-floating > .form-control:focus ~ label {
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-select:focus ~ label {
   color: var(--primary-color);
 }
