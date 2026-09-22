@@ -1,4 +1,4 @@
-/* Mendefinisikan Minimal 6 Variabel CSS pada :root */
+/* Mendefinisikan Variabel CSS pada :root */
 :root {
   --primary-color: #2b569a;
   --primary-hover: #1d3d70;
@@ -20,16 +20,16 @@ body {
   color: #333;
 }
 
-/* Melebarkan Kontainer Utama pada Layar Desktop / Wide Monitor */
+/* MELEBARKAN KONTAINER UTAMA PADA LAYAR DESKTOP */
 @media (min-width: 1200px) {
   .container {
-    max-width: 1320px;
+    max-width: 1400px !important;
   }
 }
 
 /* Custom Overrides Navbar */
 .navbar-brand {
-  color: var(--primary-color);
+  color: #ffffff;
 }
 
 /* Custom Hero Section */
