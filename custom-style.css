@@ -1,0 +1,35 @@
+/* Custom CSS Overrides & Theme Variables */
+:root {
+  --primary-brand: #30284c;
+  --primary-hover: #20369a;
+  --surface-bg: #ffffff;
+  --accent-color: #0d6efd;
+  --card-radius: 14px;
+  --shadow-lift: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Transisi Mikro-Interaksi Hover Kartu Portofolio */
+.custom-card {
+  border-radius: var(--card-radius);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+}
+
+.custom-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lift);
+}
+
+/* Efek Foto Profil Avatar */
+.profile-avatar {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* Styling Gradien Judul Hero Section */
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #a5c7ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
