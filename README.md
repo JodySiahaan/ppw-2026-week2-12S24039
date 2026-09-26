@@ -2,7 +2,7 @@
 
 **Pengembang:** Jody Siahaan  
 **NIM:** 12S24039  
-**Program Studi:** S1 Sistem Informasi / S1 Informatika - Institut Teknologi Del  
+**Program Studi:** S1 Sistem Informasi
 
 ---
 
