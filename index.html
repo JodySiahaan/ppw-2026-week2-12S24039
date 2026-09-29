@@ -3,119 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Portfolio & Service Portal - 12S24039</title>
+    <title>Jody Alfonso Siahaan - Cyber Portfolio</title>
     
-    <!-- Bootstrap 5.3 CDN CSS -->
-    <link href="https://cdn.jsdelivr.net/style.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Content Security Policy (CSP) Directives -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net; img-src 'self' https://images.unsplash.com https://www.credly.com data:; font-src 'self' https://cdn.jsdelivr.net;">
+
+    <!-- Bootstrap 5.3 CSS & Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
-    <!-- Custom Stylesheet (Dimuat setelah Bootstrap) -->
+    <!-- Custom Cyber Dark Theme Stylesheet -->
     <link rel="stylesheet" href="custom-style.css">
 </head>
 <body>
 
-    <!-- NAVBAR (Sticky Top & Collapsible Menu) -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm py-3">
+    <!-- NAVBAR GLASSMORPHISM -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top py-3">
         <div class="container">
-            <a class="navbar-brand fw-bold fs-4" href="#">DevStudio<span class="text-primary">.Del</span></a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand fw-bold fs-5 text-white" href="#">Halo, Selamat Datang</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="mainNavbar">
-                <ul class="navbar-nav ms-auto gap-lg-2">
+                <ul class="navbar-nav ms-auto gap-lg-3 align-items-lg-center">
                     <li class="nav-item"><a class="nav-link active" href="#hero">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sertifikasi">Sertifikasi</a></li>
                     <li class="nav-item"><a class="nav-link" href="#portofolio">Portofolio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#kontak">Layanan & Kontak</a></li>
+                    <li class="nav-item">
+                        <a href="#kontak" class="btn btn-neon-gradient btn-sm px-3 ms-lg-2">Hubungi Saya</a>
+                    </li>
+                    <li class="nav-item">
+                        <span id="orderCountBadge" class="badge bg-success rounded-pill px-3 py-2 d-none">0 Pesanan</span>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <main>
-        <!-- HERO SECTION -->
-        <section id="hero" class="hero-section py-5 text-white bg-dark">
-            <div class="container my-5">
+        <!-- HERO SECTION WITH NEON GLOW -->
+        <section id="hero" class="hero-section py-5">
+            <div class="container my-4">
                 <div class="row align-items-center gy-4">
+                    <!-- Avatar dengan Ring Neon Lampu -->
                     <div class="col-lg-4 text-center">
-                        <img src="profile.jpg" alt="Foto Profil" class="profile-avatar rounded-circle img-fluid border border-4 border-primary shadow">
+                        <div class="avatar-wrapper mb-3">
+                            <img id="profile-avatar" src="profile.jpg" alt="Foto Profil" class="profile-avatar">
+                        </div>
+                        <div>
+                            <span class="badge-status">Active & Open for Collaboration</span>
+                        </div>
                     </div>
+
+                    <!-- Informasi Profil & NIM Metallic -->
                     <div class="col-lg-8 text-center text-lg-start">
-                        <span class="badge bg-primary px-3 py-2 mb-2 rounded-pill">NIM: 12S24039</span>
-                        <h1 class="display-4 fw-bold text-gradient">Jody Siahaan</h1>
-                        <p class="lead text-light mb-4">Pengembang Perangkat Lunak & Spesialis Antarmuka Web (UI/UX)</p>
+                        <div class="mb-2">
+                            <span id="profile-nim" class="badge-nim">NIM: 12S24039</span>
+                        </div>
+                        <h1 id="profile-name" class="display-3 fw-bold text-white mb-2">Jody Alfonso Siahaan</h1>
+                        <p id="profile-title" class="fs-5 text-light opacity-90 mb-4" style="max-width: 650px; line-height: 1.6;">
+                            Saya Mahasiswa Sistem Informasi yang merancang dan membangun aplikasi web modern, memadukan logika rekayasa perangkat lunak dengan keahlian UI/UX.
+                        </p>
+                        
                         <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
-                            <a href="#portofolio" class="btn btn-primary btn-lg px-4 shadow-sm">Lihat Portofolio</a>
-                            <a href="#kontak" class="btn btn-outline-light btn-lg px-4">Hubungi Saya</a>
+                            <a href="#portofolio" class="btn btn-neon-gradient btn-lg px-4 fs-6">Lihat Portofolio</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- GRID PORTOFOLIO (Minimal 4 Kartu) -->
-        <section id="portofolio" class="py-5 bg-light">
+        <!-- SERTIFIKASI & LISENSI SECTION -->
+        <section id="sertifikasi" class="py-5">
             <div class="container">
                 <div class="text-center mb-5">
-                    <h2 class="fw-bold">Portofolio Proyek</h2>
-                    <p class="text-muted">Hasil karya dan proyek aplikasi yang telah diselesaikan</p>
+                    <h2 class="fw-bold text-white"><i class="bi bi-award-fill me-2 text-info"></i>Sertifikasi & Lisensi</h2>
+                    <p class="text-muted">Kredensial resmi dan pelatihan profesional yang telah diselesaikan</p>
                 </div>
 
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                    <!-- Kartu 1 -->
-                    <div class="col">
-                        <div class="card h-100 shadow-sm custom-card border-0">
-                            <div class="card-body">
-                                <span class="badge bg-info text-dark mb-2">Web App</span>
-                                <h5 class="card-title fw-bold">Sistem Informasi Loket</h5>
-                                <p class="card-text text-muted">Aplikasi pengelolaan tiket dan loket transaksi digital terintegrasi.</p>
-                                <button class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#modalProject1">
-                                    <i class="bi bi-eye me-1"></i> Detail Proyek
-                                </button>
+                <div class="row justify-content-center g-4">
+                    <!-- 1. SERTIFIKAT NALARA ACADEMY -->
+                    <div class="col-lg-10">
+                        <div class="card cert-card p-4 shadow-lg">
+                            <div class="row align-items-center gy-4">
+                                <div class="col-md-5 text-center">
+                                    <img src="nalara-cert.jpg" alt="Nalara Academy - Level Advanced" class="img-fluid rounded-3 border border-secondary shadow-sm" onerror="this.onerror=null; this.src='assets/nalara-cert.jpg';">
+                                </div>
+                                <div class="col-md-7 text-white">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <span class="cert-badge"><i class="bi bi-patch-check-fill me-1"></i> Terverifikasi</span>
+                                        <span class="text-muted small"><i class="bi bi-clock me-1"></i>96 Learning Hours</span>
+                                    </div>
+                                    
+                                    <h4 class="fw-bold text-white mb-1">National AI & Deep Learning Acceleration Bootcamp - Level Advanced</h4>
+                                    <p class="text-info fw-semibold mb-3"><i class="bi bi-building me-1"></i> Nalara Academy</p>
+                                    
+                                    <p class="text-light opacity-90 small mb-3 cert-quote">
+                                        Completed the Nalara Academy Level Advanced Bootcamp (96 Learning Hours, August 2026). Focused on pushing the boundaries of deep learning models, advanced AI architectures, and intelligent systems development.
+                                    </p>
+
+                                    <p class="text-muted small mb-3">
+                                        <strong>No. Sertifikat:</strong> NLR-CERT-ADV-B01-0008<br>
+                                        <strong>Penerbitan:</strong> 25 Agustus 2026
+                                    </p>
+
+                                    <div class="d-flex flex-wrap gap-2 mb-3">
+                                        <span class="badge bg-dark border border-secondary text-light">Deep Learning</span>
+                                        <span class="badge bg-dark border border-secondary text-light">AI Architectures</span>
+                                        <span class="badge bg-dark border border-secondary text-light">Intelligent Systems</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Kartu 2 -->
-                    <div class="col">
-                        <div class="card h-100 shadow-sm custom-card border-0">
-                            <div class="card-body">
-                                <span class="badge bg-success mb-2">Machine Learning</span>
-                                <h5 class="card-title fw-bold">Klasifikasi Model AI</h5>
-                                <p class="card-text text-muted">Model prediksi cerdas menggunakan bahasa Pemrograman Python.</p>
-                                <button class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#modalProject2">
-                                    <i class="bi bi-eye me-1"></i> Detail Proyek
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- 2. SERTIFIKAT AWS ACADEMY -->
+                    <div class="col-lg-10">
+                        <div class="card cert-card p-4 shadow-lg">
+                            <div class="row align-items-center gy-4">
+                                <div class="col-md-5 text-center">
+                                    <img src="aws-cert.png" alt="AWS Academy Graduate - Generative AI Foundations" class="img-fluid rounded-3 border border-secondary shadow-sm" onerror="this.onerror=null; this.src='assets/aws-cert.png';">
+                                </div>
+                                <div class="col-md-7 text-white">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <span class="cert-badge"><i class="bi bi-patch-check-fill me-1"></i> Terverifikasi</span>
+                                        <span class="text-muted small"><i class="bi bi-clock me-1"></i>12 Hours Course</span>
+                                    </div>
+                                    
+                                    <h4 class="fw-bold text-white mb-1">AWS Academy Graduate - Generative AI Foundations</h4>
+                                    <p class="text-info fw-semibold mb-3"><i class="bi bi-building me-1"></i> AWS Academy</p>
+                                    
+                                    <p class="text-light opacity-90 small mb-3 cert-quote">
+                                        "I am thrilled to share that I have successfully completed the AWS Academy Graduate - Generative AI Foundations training! 🎓⚡<br><br>
+                                        Gaining insights into Generative AI concepts and cloud implementation through AWS has been an enriching experience. Looking forward to applying these skills to future projects and continuous learning in AI and Systems!"
+                                    </p>
 
-                    <!-- Kartu 3 -->
-                    <div class="col">
-                        <div class="card h-100 shadow-sm custom-card border-0">
-                            <div class="card-body">
-                                <span class="badge bg-warning text-dark mb-2">Java OOP</span>
-                                <h5 class="card-title fw-bold">Aplikasi Manajemen Akademik</h5>
-                                <p class="card-text text-muted">Sistem manajemen berbasis Pemrograman Berorientasi Objek.</p>
-                                <button class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#modalProject1">
-                                    <i class="bi bi-eye me-1"></i> Detail Proyek
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                                    <p class="text-muted small mb-3">
+                                        <strong>Penerbitan:</strong> 28 September 2026
+                                    </p>
 
-                    <!-- Kartu 4 -->
-                    <div class="col">
-                        <div class="card h-100 shadow-sm custom-card border-0">
-                            <div class="card-body">
-                                <span class="badge bg-danger mb-2">UI/UX Design</span>
-                                <h5 class="card-title fw-bold">Desain Antarmuka Portal</h5>
-                                <p class="card-text text-muted">Prototipering antarmuka interaktif menggunakan Figma.</p>
-                                <button class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#modalProject2">
-                                    <i class="bi bi-eye me-1"></i> Detail Proyek
-                                </button>
+                                    <div class="d-flex flex-wrap gap-2 mb-4">
+                                        <span class="badge bg-dark border border-secondary text-light">Generative AI</span>
+                                        <span class="badge bg-dark border border-secondary text-light">AWS Cloud</span>
+                                        <span class="badge bg-dark border border-secondary text-light">Machine Learning</span>
+                                    </div>
+
+                                    <a href="https://www.credly.com/badges/d016fe53-20d0-42fe-9fa3-121f2b040d69" target="_blank" class="btn btn-outline-info btn-sm rounded-pill px-3">
+                                        <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Badge Credly
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -123,48 +160,57 @@
             </div>
         </section>
 
-        <!-- FORMULIR LAYANAN & KONTAK (Modern Bootstrap Components) -->
+        <!-- GRID PORTOFOLIO (CSR Dynamic Rendering) -->
+        <section id="portofolio" class="py-5">
+            <div class="container">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold text-white">Portofolio Proyek</h2>
+                    <p class="text-muted">Hasil karya dan proyek aplikasi yang dimuat secara asinkron (CSR)</p>
+                </div>
+
+                <!-- Interactive Category Filters -->
+                <div id="project-filters" class="d-flex justify-content-center flex-wrap mb-4"></div>
+
+                <!-- Container Proyek Dynamic -->
+                <div id="projects-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"></div>
+            </div>
+        </section>
+
+        <!-- FORMULIR LAYANAN & KONTAK -->
         <section id="kontak" class="py-5">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
-                        <div class="card shadow border-0 p-4 rounded-4">
-                            <h3 class="fw-bold text-center mb-4"><i class="bi bi-envelope-paper me-2 text-primary"></i>Formulir Konsultasi & Layanan</h3>
-                            <form class="needs-validation" novalidate>
-                                <!-- Floating Label Input Teks -->
+                        <div class="card p-4 rounded-4 shadow-lg">
+                            <h3 class="fw-bold text-center mb-4 text-white"><i class="bi bi-envelope-paper me-2 text-info"></i>Formulir Konsultasi & Layanan</h3>
+                            
+                            <form id="serviceOrderForm" class="needs-validation" novalidate>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingName" placeholder="Nama Lengkap" required>
-                                    <label for="floatingName"><i class="bi bi-person me-1"></i> Nama Lengkap *</label>
+                                    <input type="text" class="form-control" id="floatingName" name="name" placeholder="Nama Lengkap" required>
+                                    <label for="floatingName">Nama Lengkap *</label>
                                     <div class="invalid-feedback">Nama lengkap wajib diisi.</div>
                                 </div>
 
-                                <!-- Floating Label Email dengan Input Group Icon -->
                                 <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" id="floatingEmail" placeholder="nama@del.ac.id" required>
-                                    <label for="floatingEmail"><i class="bi bi-envelope me-1"></i> Alamat Email Resmi *</label>
+                                    <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="nama@del.ac.id" required>
+                                    <label for="floatingEmail">Alamat Email Resmi *</label>
                                     <div class="invalid-feedback">Alamat email valid wajib disertakan.</div>
                                 </div>
 
-                                <!-- Select Category -->
                                 <div class="form-floating mb-3">
-                                    <select class="form-select" id="floatingSelect" aria-label="Kategori Layanan" required>
-                                        <option value="" selected disabled>Pilih Kategori...</option>
-                                        <option value="1">Pengembangan Web</option>
-                                        <option value="2">Desain Antarmuka UI/UX</option>
-                                        <option value="3">Konsultasi AI & Data</option>
+                                    <select class="form-select" id="floatingSelect" name="serviceId" required>
+                                        <option value="" selected disabled>Memuat katalog layanan...</option>
                                     </select>
-                                    <label for="floatingSelect"><i class="bi bi-gear me-1"></i> Kategori Layanan *</label>
+                                    <label for="floatingSelect">Kategori Layanan *</label>
                                     <div class="invalid-feedback">Silakan pilih kategori layanan.</div>
                                 </div>
 
-                                <!-- Floating Label Pesan -->
                                 <div class="form-floating mb-3">
-                                    <textarea class="form-control" id="floatingPesan" placeholder="Pesan Anda" style="height: 120px" required></textarea>
-                                    <label for="floatingPesan"><i class="bi bi-chat-left-text me-1"></i> Pesan / Deskripsi Proyek *</label>
+                                    <textarea class="form-control" id="floatingPesan" name="message" placeholder="Pesan Anda" style="height: 120px" required></textarea>
+                                    <label for="floatingPesan">Pesan / Deskripsi Proyek *</label>
                                     <div class="invalid-feedback">Deskripsi pesan wajib diisi.</div>
                                 </div>
 
-                                <!-- Checkbox Syarat & Ketentuan -->
                                 <div class="form-check mb-4">
                                     <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                                     <label class="form-check-label text-muted" for="invalidCheck">
@@ -173,7 +219,7 @@
                                     <div class="invalid-feedback">Anda harus menyetujui sebelum mengirim.</div>
                                 </div>
 
-                                <button class="btn btn-primary btn-lg w-100 shadow-sm" type="submit">Kirim Pesan</button>
+                                <button class="btn btn-neon-gradient btn-lg w-100" type="submit">Kirim Permintaan</button>
                             </form>
                         </div>
                     </div>
@@ -182,76 +228,47 @@
         </section>
     </main>
 
-    <!-- BOOTSTRAP MODALS (Minimal 2 Modal Berbeda Konten) -->
-    <!-- Modal 1 -->
-    <div class="modal fade" id="modalProject1" tabindex="-1" aria-labelledby="modalProject1Label" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title fw-bold" id="modalProject1Label">Detail: Sistem Informasi Loket</h5>
+    <!-- UNIVERSAL DYNAMIC MODAL -->
+    <div class="modal fade" id="universalProjectModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title fw-bold text-white" id="projectModalTitle">Judul Proyek</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <p>Sistem informasi terpadu yang dirancang untuk mempercepat pencatatan dan manajemen antrean loket operasional secara *real-time*.</p>
-                    <ul>
-                        <li><strong>Teknologi:</strong> HTML5, CSS Variables, JavaScript, Bootstrap 5</li>
-                        <li><strong>Fitur Utama:</strong> Dashboard antrean, cetak nomor loket, rekapitulasi data harian.</li>
-                    </ul>
+                <div class="modal-body p-4" id="projectModalBody">
+                    <!-- Dynamic Content Injected Here -->
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer border-secondary">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal 2 -->
-    <div class="modal fade" id="modalProject2" tabindex="-1" aria-labelledby="modalProject2Label" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow">
-                <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title fw-bold" id="modalProject2Label">Detail: Klasifikasi Model AI</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- BOOTSTRAP TOAST NOTIFICATION CONTAINER -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <strong id="toastTitle" class="me-auto d-block">Notifikasi</strong>
+                    <span id="toastBody">Pesan notifikasi.</span>
                 </div>
-                <div class="modal-body">
-                    <p>Model pembelajaran mesin yang memanfaatkan algoritma pemrosesan tingkat tinggi untuk mengidentifikasi pola data secara presisi.</p>
-                    <ul>
-                        <li><strong>Teknologi:</strong> Python, Machine Learning Framework, Jupyter Notebook</li>
-                        <li><strong>Fitur Utama:</strong> Evaluasi akurasi, visualisasi grafik, ekspor laporan hasil prediksi.</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
     </div>
 
     <!-- FOOTER -->
-    <footer class="bg-dark text-white text-center py-4 border-top border-secondary">
+    <footer class="text-center py-4 border-top border-secondary mt-5" style="background: rgba(10, 13, 20, 0.9);">
         <div class="container">
-            <p class="mb-0">&copy; 2026 Jody Siahaan (12S24039) - Institut Teknologi Del</p>
+            <p class="mb-0 text-muted">&copy; 2026 Jody Alfonso Siahaan (12S24039) - Institut Teknologi Del</p>
         </div>
     </footer>
 
-    <!-- Bootstrap 5 JS Bundle dengan Popper -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Script Validasi Form Sederhana -->
-    <script>
-        (() => {
-          'use strict'
-          const forms = document.querySelectorAll('.needs-validation')
-          Array.from(forms).forEach(form => {
-            form.addEventListener('submit', event => {
-              if (!form.checkValidity()) {
-                event.preventDefault()
-                event.stopPropagation()
-              }
-              form.classList.add('was-validated')
-            }, false)
-          })
-        })()
-    </script>
+    <script src="js/api-service.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

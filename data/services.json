@@ -1,0 +1,20 @@
+[
+  {
+    "id": "srv-1",
+    "name": "Pengembangan Web Modern",
+    "description": "Pembangunan aplikasi web kustom yang responsif, decoupled, dan teroptimasi.",
+    "price": "Mulai Rp 2.500.000"
+  },
+  {
+    "id": "srv-2",
+    "name": "Desain Antarmuka UI/UX",
+    "description": "Perancangan UI/UX berbasis riset pengguna, wireframing, dan prototipe Figma.",
+    "price": "Mulai Rp 1.500.000"
+  },
+  {
+    "id": "srv-3",
+    "name": "Konsultasi AI & Data",
+    "description": "Analisis data, pembuatan pipeline Machine Learning, dan integrasi API cerdas.",
+    "price": "Mulai Rp 3.000.000"
+  }
+]
