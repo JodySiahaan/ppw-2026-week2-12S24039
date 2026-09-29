@@ -131,7 +131,7 @@ class App {
     container.innerHTML = this.state.filteredProjects.map(proj => `
       <div class="col">
         <div class="card h-100 shadow-sm border-0">
-          <img src="${this.escapeHTML(proj.thumbnail)}" class="card-img-top" alt="${this.escapeHTML(proj.title)}" style="height: 180px; object-fit: cover;">
+          <img src="${this.escapeHTML(proj.thumbnail)}" class="card-img-top" alt="${this.escapeHTML(proj.title)}" style="height: 180px; object-fit: cover;" onerror="this.onerror=null; this.src='assets/${this.escapeHTML(proj.thumbnail)}';">
           <div class="card-body d-flex flex-column">
             <span class="badge bg-info text-dark mb-2 align-self-start fw-bold">${this.escapeHTML(proj.category)}</span>
             <h5 class="card-title fw-bold text-white">${this.escapeHTML(proj.title)}</h5>
@@ -161,7 +161,7 @@ class App {
     const techBadges = proj.technologies.map(t => `<span class="badge bg-secondary me-1">${this.escapeHTML(t)}</span>`).join('');
     
     document.getElementById('projectModalBody').innerHTML = `
-      <img src="${this.escapeHTML(proj.thumbnail)}" class="img-fluid rounded mb-3 w-100" alt="${this.escapeHTML(proj.title)}" style="max-height: 280px; object-fit: cover;">
+      <img src="${this.escapeHTML(proj.thumbnail)}" class="img-fluid rounded mb-3 w-100" alt="${this.escapeHTML(proj.title)}" style="max-height: 280px; object-fit: cover;" onerror="this.onerror=null; this.src='assets/${this.escapeHTML(proj.thumbnail)}';">
       <div class="mb-2"><span class="badge bg-info text-dark fw-bold px-3 py-2">${this.escapeHTML(proj.category)}</span></div>
       <p class="text-light opacity-90">${this.escapeHTML(proj.description)}</p>
       <div class="mb-3 text-white">
