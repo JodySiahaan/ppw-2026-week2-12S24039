@@ -172,18 +172,25 @@ body::before {
   color: var(--text-muted) !important;
 }
 
-/* FORM FLOATING INPUTS FOR DARK MODE */
+/* FORM FLOATING INPUTS & SELECT FOR DARK MODE */
 .form-control, .form-select {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(10, 13, 20, 0.9) !important;
   border: 1px solid var(--border-color);
-  color: #fff;
+  color: #ffffff !important;
 }
 
 .form-control:focus, .form-select:focus {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(16, 22, 36, 0.95) !important;
   border-color: var(--neon-cyan);
-  color: #fff;
+  color: #ffffff !important;
   box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+}
+
+/* SELECT OPTIONS DARK BACKGROUND */
+.form-select option {
+  background-color: #0a0d14 !important;
+  color: #ffffff !important;
+  padding: 10px;
 }
 
 .form-floating label {

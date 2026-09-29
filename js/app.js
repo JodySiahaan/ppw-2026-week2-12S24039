@@ -184,7 +184,7 @@ class App {
       const selectEl = document.getElementById('floatingSelect');
       if (selectEl) {
         selectEl.innerHTML = '<option value="" selected disabled>Pilih Kategori...</option>' + 
-          services.map(s => `<option value="${s.id}">${this.escapeHTML(s.name)} - (${this.escapeHTML(s.price)})</option>`).join('');
+          services.map(s => `<option value="${s.id}">${this.escapeHTML(s.name)}</option>`).join('');
       }
     } catch (err) {
       console.error('Gagal memuat katalog layanan:', err);
