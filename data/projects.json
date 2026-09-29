@@ -1,0 +1,42 @@
+[
+  {
+    "id": "proj-1",
+    "title": "Sistem Informasi Loket",
+    "category": "Web App",
+    "description": "Sistem informasi terpadu yang dirancang untuk mempercepat pencatatan dan manajemen antrean loket operasional secara real-time.",
+    "thumbnail": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format&fit=crop&q=80",
+    "technologies": ["HTML5", "CSS Variables", "JavaScript ES6", "Bootstrap 5"],
+    "metrics": "Efisiensi antrean meningkat 40%",
+    "link": "https://github.com"
+  },
+  {
+    "id": "proj-2",
+    "title": "Klasifikasi Model AI",
+    "category": "Machine Learning",
+    "description": "Model pembelajaran mesin yang memanfaatkan algoritma pemrosesan tingkat tinggi untuk mengidentifikasi pola data secara presisi.",
+    "thumbnail": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&auto=format&fit=crop&q=80",
+    "technologies": ["Python", "Scikit-Learn", "Jupyter Notebook", "Pandas"],
+    "metrics": "Akurasi model mencapai 94.2%",
+    "link": "https://github.com"
+  },
+  {
+    "id": "proj-3",
+    "title": "Aplikasi Manajemen Akademik",
+    "category": "Java OOP",
+    "description": "Sistem manajemen akademik berbasis Pemrograman Berorientasi Objek dengan penerapan arsitektur Data Mapper.",
+    "thumbnail": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&auto=format&fit=crop&q=80",
+    "technologies": ["Java", "JDBC", "MySQL", "OOP Architecture"],
+    "metrics": "Mengelola 1000+ data entitas mahasiswa",
+    "link": "https://github.com"
+  },
+  {
+    "id": "proj-4",
+    "title": "Desain Antarmuka Portal Toba",
+    "category": "UI/UX Design",
+    "description": "Prototipe antarmuka interaktif portal informasi pariwisata yang menerapkan Jesse James Garrett Framework.",
+    "thumbnail": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=600&auto=format&fit=crop&q=80",
+    "technologies": ["Figma", "Design System", "Bootstrap Grid", "Prototyping"],
+    "metrics": "Skor Usability System (SUS) 85/100",
+    "link": "https://figma.com"
+  }
+]
