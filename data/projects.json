@@ -21,13 +21,13 @@
   },
   {
     "id": "proj-3",
-    "title": "Aplikasi Manajemen Akademik",
-    "category": "Java OOP",
-    "description": "Sistem manajemen akademik berbasis Pemrograman Berorientasi Objek dengan penerapan arsitektur Data Mapper.",
-    "thumbnail": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&auto=format&fit=crop&q=80",
-    "technologies": ["Java", "JDBC", "MySQL", "OOP Architecture"],
-    "metrics": "Mengelola 1000+ data entitas mahasiswa",
-    "link": "https://github.com"
+    "title": "Toba-in Samosir",
+    "category": "UI/UX Design",
+    "description": "Tobain Samosir adalah sebuah aplikasi yang menawarkan layanan tour guide dan transportasi wisata di Pulau Samosir, Sumatera Utara. Aplikasi ini dirancang untuk membantu wisatawan, lokal maupun internasional, untuk menjelajahi berbagai destinasi wisata menarik di Samosir dengan sistem pemesanan yang praktis, aman, nyaman dan transparan.",
+    "thumbnail": "tobain-samosir.png",
+    "technologies": ["Figma", "UI/UX Research", "Wireframing", "Prototyping"],
+    "metrics": "Sistem pemesanan tur & transportasi wisata terpadu Samosir",
+    "link": "https://figma.com"
   },
   {
     "id": "proj-4",

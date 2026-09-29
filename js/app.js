@@ -118,6 +118,9 @@ class App {
     const container = document.getElementById('projects-container');
     if (!container) return;
 
+    // Menambahkan kelas Bootstrap justify-content-center agar kolom sisa otomatis di posisi tengah
+    container.classList.add('justify-content-center');
+
     if (this.state.filteredProjects.length === 0) {
       const emptyHTML = `
         <div class="col-12 text-center py-5">
@@ -131,7 +134,7 @@ class App {
     container.innerHTML = this.state.filteredProjects.map(proj => `
       <div class="col">
         <div class="card h-100 shadow-sm border-0">
-          <img src="${this.escapeHTML(proj.thumbnail)}" class="card-img-top" alt="${this.escapeHTML(proj.title)}" style="height: 180px; object-fit: cover;" onerror="this.onerror=null; this.src='assets/${this.escapeHTML(proj.thumbnail)}';">
+          <img src="${this.escapeHTML(proj.thumbnail)}" class="card-img-top" alt="${this.escapeHTML(proj.title)}" style="height: 220px; object-fit: contain; background-color: #0d1117; padding: 12px;" onerror="this.onerror=null; this.src='assets/${this.escapeHTML(proj.thumbnail)}';">
           <div class="card-body d-flex flex-column">
             <span class="badge bg-info text-dark mb-2 align-self-start fw-bold">${this.escapeHTML(proj.category)}</span>
             <h5 class="card-title fw-bold text-white">${this.escapeHTML(proj.title)}</h5>
@@ -161,14 +164,16 @@ class App {
     const techBadges = proj.technologies.map(t => `<span class="badge bg-secondary me-1">${this.escapeHTML(t)}</span>`).join('');
     
     document.getElementById('projectModalBody').innerHTML = `
-      <img src="${this.escapeHTML(proj.thumbnail)}" class="img-fluid rounded mb-3 w-100" alt="${this.escapeHTML(proj.title)}" style="max-height: 280px; object-fit: cover;" onerror="this.onerror=null; this.src='assets/${this.escapeHTML(proj.thumbnail)}';">
+      <div class="text-center bg-dark p-3 rounded mb-3">
+        <img src="${this.escapeHTML(proj.thumbnail)}" class="img-fluid rounded" alt="${this.escapeHTML(proj.title)}" style="max-height: 280px; object-fit: contain;" onerror="this.onerror=null; this.src='assets/${this.escapeHTML(proj.thumbnail)}';">
+      </div>
       <div class="mb-2"><span class="badge bg-info text-dark fw-bold px-3 py-2">${this.escapeHTML(proj.category)}</span></div>
       <p class="text-light opacity-90">${this.escapeHTML(proj.description)}</p>
       <div class="mb-3 text-white">
         <strong>Teknologi:</strong><br>${techBadges}
       </div>
-      <div class="alert alert-dark border-info text-info py-2">
-        <i class="bi bi-graph-up-arrow me-2"></i><strong>Metrik Hasil:</strong> ${this.escapeHTML(proj.metrics)}
+      <div class="modal-metric-box p-3 rounded mb-3">
+        <i class="bi bi-graph-up-arrow me-2 text-info"></i><strong class="text-white">Metrik Hasil:</strong> <span class="text-light">${this.escapeHTML(proj.metrics)}</span>
       </div>
       <a href="${this.escapeHTML(proj.link)}" target="_blank" class="btn btn-sm btn-outline-info"><i class="bi bi-box-arrow-up-right me-1"></i> Buka Tautan Proyek</a>
     `;

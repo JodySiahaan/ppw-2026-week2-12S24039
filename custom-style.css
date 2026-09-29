@@ -156,6 +156,12 @@ body::before {
   border-radius: 0 8px 8px 0;
 }
 
+/* METRIC BOX IN MODAL - HITAM PEKAT */
+.modal-metric-box {
+  background-color: #000000 !important;
+  border: 1px solid rgba(0, 242, 254, 0.3) !important;
+}
+
 /* CARDS & MODAL IN DARK THEME */
 .card, .modal-content {
   background-color: var(--bg-card) !important;
