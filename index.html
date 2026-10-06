@@ -6,7 +6,7 @@
     <title>Jody Alfonso Siahaan - Cyber Portfolio</title>
     
     <!-- Content Security Policy (CSP) Directives -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net; img-src 'self' https://images.unsplash.com https://www.credly.com data:; font-src 'self' https://cdn.jsdelivr.net;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net; img-src 'self' https://images.unsplash.com data:; connect-src 'self' https://jsonplaceholder.typicode.com; object-src 'none'; base-uri 'self'; form-action 'self'; font-src 'self' https://cdn.jsdelivr.net;">
 
     <!-- Bootstrap 5.3 CSS & Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -34,7 +34,7 @@
                         <a href="#kontak" class="btn btn-neon-gradient btn-sm px-3 ms-lg-2">Hubungi Saya</a>
                     </li>
                     <li class="nav-item">
-                        <span id="orderCountBadge" class="badge bg-success rounded-pill px-3 py-2 d-none">0 Pesanan</span>
+                        <a href="#riwayat" id="orderCountBadge" class="badge bg-success rounded-pill px-3 py-2 d-none text-decoration-none">0 Pesanan</a>
                     </li>
                 </ul>
             </div>
@@ -62,7 +62,7 @@
                             <span id="profile-nim" class="badge-nim">NIM: 12S24039</span>
                         </div>
                         <h1 id="profile-name" class="display-3 fw-bold text-white mb-2">Jody Alfonso Siahaan</h1>
-                        <p id="profile-title" class="fs-5 text-light opacity-90 mb-4" style="max-width: 650px; line-height: 1.6;">
+                        <p id="profile-title" class="fs-5 text-light opacity-90 mb-4 hero-lead">
                             Saya Mahasiswa Sistem Informasi yang merancang dan membangun aplikasi web modern, memadukan logika rekayasa perangkat lunak dengan keahlian UI/UX.
                         </p>
                         
@@ -82,81 +82,7 @@
                     <p class="text-muted">Kredensial resmi dan pelatihan profesional yang telah diselesaikan</p>
                 </div>
 
-                <div class="row justify-content-center g-4">
-                    <!-- 1. SERTIFIKAT NALARA ACADEMY -->
-                    <div class="col-lg-10">
-                        <div class="card cert-card p-4 shadow-lg">
-                            <div class="row align-items-center gy-4">
-                                <div class="col-md-5 text-center">
-                                    <img src="nalara-cert.jpg" alt="Nalara Academy - Level Advanced" class="img-fluid rounded-3 border border-secondary shadow-sm" onerror="this.onerror=null; this.src='assets/nalara-cert.jpg';">
-                                </div>
-                                <div class="col-md-7 text-white">
-                                    <div class="d-flex align-items-center gap-2 mb-2">
-                                        <span class="cert-badge"><i class="bi bi-patch-check-fill me-1"></i> Terverifikasi</span>
-                                        <span class="text-muted small"><i class="bi bi-clock me-1"></i>96 Learning Hours</span>
-                                    </div>
-                                    
-                                    <h4 class="fw-bold text-white mb-1">National AI & Deep Learning Acceleration Bootcamp - Level Advanced</h4>
-                                    <p class="text-info fw-semibold mb-3"><i class="bi bi-building me-1"></i> Nalara Academy</p>
-                                    
-                                    <p class="text-light opacity-90 small mb-3 cert-quote">
-                                        Completed the Nalara Academy Level Advanced Bootcamp (96 Learning Hours, August 2026). Focused on pushing the boundaries of deep learning models, advanced AI architectures, and intelligent systems development.
-                                    </p>
-
-                                    <p class="text-muted small mb-3">
-                                        <strong>No. Sertifikat:</strong> NLR-CERT-ADV-B01-0008<br>
-                                        <strong>Penerbitan:</strong> 25 Agustus 2026
-                                    </p>
-
-                                    <div class="d-flex flex-wrap gap-2 mb-3">
-                                        <span class="badge bg-dark border border-secondary text-light">Deep Learning</span>
-                                        <span class="badge bg-dark border border-secondary text-light">AI Architectures</span>
-                                        <span class="badge bg-dark border border-secondary text-light">Intelligent Systems</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 2. SERTIFIKAT AWS ACADEMY -->
-                    <div class="col-lg-10">
-                        <div class="card cert-card p-4 shadow-lg">
-                            <div class="row align-items-center gy-4">
-                                <div class="col-md-5 text-center">
-                                    <img src="aws-cert.png" alt="AWS Academy Graduate - Generative AI Foundations" class="img-fluid rounded-3 border border-secondary shadow-sm" onerror="this.onerror=null; this.src='assets/aws-cert.png';">
-                                </div>
-                                <div class="col-md-7 text-white">
-                                    <div class="d-flex align-items-center gap-2 mb-2">
-                                        <span class="cert-badge"><i class="bi bi-patch-check-fill me-1"></i> Terverifikasi</span>
-                                        <span class="text-muted small"><i class="bi bi-clock me-1"></i>12 Hours Course</span>
-                                    </div>
-                                    
-                                    <h4 class="fw-bold text-white mb-1">AWS Academy Graduate - Generative AI Foundations</h4>
-                                    <p class="text-info fw-semibold mb-3"><i class="bi bi-building me-1"></i> AWS Academy</p>
-                                    
-                                    <p class="text-light opacity-90 small mb-3 cert-quote">
-                                        "I am thrilled to share that I have successfully completed the AWS Academy Graduate - Generative AI Foundations training! 🎓⚡<br><br>
-                                        Gaining insights into Generative AI concepts and cloud implementation through AWS has been an enriching experience. Looking forward to applying these skills to future projects and continuous learning in AI and Systems!"
-                                    </p>
-
-                                    <p class="text-muted small mb-3">
-                                        <strong>Penerbitan:</strong> 28 September 2026
-                                    </p>
-
-                                    <div class="d-flex flex-wrap gap-2 mb-4">
-                                        <span class="badge bg-dark border border-secondary text-light">Generative AI</span>
-                                        <span class="badge bg-dark border border-secondary text-light">AWS Cloud</span>
-                                        <span class="badge bg-dark border border-secondary text-light">Machine Learning</span>
-                                    </div>
-
-                                    <a href="https://www.credly.com/badges/d016fe53-20d0-42fe-9fa3-121f2b040d69" target="_blank" class="btn btn-outline-info btn-sm rounded-pill px-3">
-                                        <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Badge Credly
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="certificates-container" class="row justify-content-center g-4"></div>
             </div>
         </section>
 
@@ -169,9 +95,10 @@
                 </div>
 
                 <!-- Interactive Category Filters -->
+                <div class="row justify-content-center mb-3"><div class="col-md-6"><input type="search" id="project-search" class="form-control" placeholder="Cari proyek atau teknologi..." aria-label="Cari proyek" maxlength="60"></div></div>
                 <div id="project-filters" class="d-flex justify-content-center flex-wrap mb-4"></div>
 
-                <!-- Container Proyek Dynamic (Ditambahkan justify-content-center) -->
+                
                 <div id="projects-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center"></div>
             </div>
         </section>
@@ -206,7 +133,7 @@
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <textarea class="form-control" id="floatingPesan" name="message" placeholder="Pesan Anda" style="height: 120px" required></textarea>
+                                    <textarea class="form-control textarea-tall" id="floatingPesan" name="message" placeholder="Pesan Anda" required></textarea>
                                     <label for="floatingPesan">Pesan / Deskripsi Proyek *</label>
                                     <div class="invalid-feedback">Deskripsi pesan wajib diisi.</div>
                                 </div>
@@ -221,6 +148,15 @@
 
                                 <button class="btn btn-neon-gradient btn-lg w-100" type="submit">Kirim Permintaan</button>
                             </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 mt-4" id="riwayat">
+                        <div class="card p-4 rounded-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="fw-bold text-white mb-0"><i class="bi bi-clock-history me-2 text-info"></i>Riwayat Pesanan</h4>
+                                <button type="button" id="clearOrdersBtn" class="btn btn-sm btn-outline-danger d-none">Hapus riwayat</button>
+                            </div>
+                            <ul id="orderHistory" class="list-group list-group-flush"></ul>
                         </div>
                     </div>
                 </div>
@@ -260,7 +196,7 @@
     </div>
 
     <!-- FOOTER -->
-    <footer class="text-center py-4 border-top border-secondary mt-5" style="background: rgba(10, 13, 20, 0.9);">
+    <footer class="text-center py-4 border-top border-secondary mt-5 site-footer">
         <div class="container">
             <p class="mb-0 text-muted">&copy; 2026 Jody Alfonso Siahaan (12S24039) - Institut Teknologi Del</p>
         </div>

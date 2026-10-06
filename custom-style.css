@@ -202,3 +202,19 @@ body::before {
 .form-floating label {
   color: var(--text-muted);
 }
+
+/* ---- Week 4: state komponen (tanpa style inline, sesuai CSP) ---- */
+.hero-lead { max-width: 650px; line-height: 1.6; }
+.textarea-tall { height: 120px; }
+.site-footer { background: rgba(10, 13, 20, 0.9); }
+.thumb-img { height: 220px; width: 100%; object-fit: contain; background-color: #0d1117; padding: 12px; }
+.modal-img { max-height: 280px; object-fit: contain; }
+.img-missing { opacity: 0.35; }
+
+.skeleton-card { min-height: 320px; border-radius: 12px; border: 1px solid var(--border-color);
+  background: linear-gradient(100deg, rgba(255,255,255,0.03) 30%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.03) 70%);
+  background-size: 200% 100%; animation: shimmer 1.4s linear infinite; }
+@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .skeleton-card { animation: none; } }
+
+.order-item { background: transparent; color: var(--text-primary); border-color: var(--border-color); }

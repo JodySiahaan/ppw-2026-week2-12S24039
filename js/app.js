@@ -1,273 +1,298 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const app = new App();
-  app.init();
-});
+/**
+ * Presentation Layer: merakit DOM, menangani event, mengelola 4 UI state.
+ * Data dari JSON hanya masuk lewat textContent/setAttribute (anti DOM-XSS).
+ */
+const el = (tag, props = {}, ...kids) => {
+  const node = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (v === undefined || v === null || v === false) continue;
+    if (k === 'class') node.className = v;
+    else if (k === 'text') node.textContent = v;
+    else node.setAttribute(k, v);
+  }
+  kids.flat().forEach((c) => c && node.append(c));
+  return node;
+};
+
+// Hanya izinkan http(s) atau path relatif; tolak javascript:, data:, dll.
+const safeUrl = (u) => {
+  if (!u) return '';
+  try {
+    const url = new URL(u, window.location.href);
+    return ['http:', 'https:'].includes(url.protocol) ? u : '';
+  } catch { return ''; }
+};
 
 class App {
+  static ORDER_KEY = 'user_orders';
+
   constructor() {
-    this.state = {
-      projects: [],
-      filteredProjects: [],
-      services: [],
-      profile: null,
-      activeCategory: 'All'
-    };
+    this.state = { projects: [], services: [], profile: null, category: 'All', query: '' };
   }
 
-  async init() {
-    this.initToast();
-    this.loadOrdersFromStorage();
-    await this.loadProfileData();
-    await this.loadProjectsData();
-    await this.loadServicesData();
-    this.setupEventListeners();
+  init() {
+    this.toast = new bootstrap.Toast(document.getElementById('liveToast'));
+    this.bindImageFallback();
+    this.bindForm();
+    this.bindSearch();
+    this.renderOrders();
+    window.addEventListener('storage', (e) => e.key === App.ORDER_KEY && this.renderOrders());
+    document.getElementById('clearOrdersBtn').addEventListener('click', () => {
+      localStorage.removeItem(App.ORDER_KEY);
+      this.renderOrders();
+    });
+    // Tiga sumber data dimuat paralel; masing-masing punya state sendiri.
+    this.loadProfile();
+    this.loadProjects();
+    this.loadServices();
   }
 
-  initToast() {
-    const toastEl = document.getElementById('liveToast');
-    if (toastEl) {
-      this.toast = new bootstrap.Toast(toastEl);
+  /* ---------- Mesin 4 UI state, dipakai semua sumber data ---------- */
+  showLoading(container, count = 3, cls = 'col') {
+    container.replaceChildren(...Array.from({ length: count }, () =>
+      el('div', { class: cls, 'aria-hidden': 'true' }, el('div', { class: 'skeleton-card' }))));
+    container.setAttribute('aria-busy', 'true');
+  }
+
+  showEmpty(container, message, onReset) {
+    container.removeAttribute('aria-busy');
+    const box = el('div', { class: 'col-12 text-center py-5' },
+      el('i', { class: 'bi bi-folder-x fs-1 text-muted' }),
+      el('p', { class: 'mt-2 text-muted', text: message }));
+    if (onReset) {
+      const btn = el('button', { class: 'btn btn-outline-info btn-sm', type: 'button', text: 'Reset filter' });
+      btn.addEventListener('click', onReset);
+      box.append(btn);
     }
+    container.replaceChildren(box);
   }
 
-  escapeHTML(str) {
-    if (!str) return '';
-    return str.replace(/[&<>'"]/g, 
-      tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
+  showError(container, err, retry) {
+    container.removeAttribute('aria-busy');
+    const btn = el('button', { class: 'btn btn-sm btn-outline-light mt-2', type: 'button', text: 'Coba lagi' });
+    btn.addEventListener('click', retry);
+    container.replaceChildren(el('div', { class: 'col-12' },
+      el('div', { class: 'alert alert-danger', role: 'alert' },
+        el('strong', { text: 'Data gagal dimuat. ' }),
+        el('span', { text: err.message || 'Terjadi kesalahan tak terduga.' }),
+        el('div', {}, btn))));
   }
 
-  renderState(containerId, stateHTML) {
-    const container = document.getElementById(containerId);
-    if (container) container.innerHTML = stateHTML;
-  }
-
-  renderSkeleton(containerId) {
-    const skeletonHTML = `
-      <div class="col-12 text-center py-5">
-        <div class="spinner-border text-info" role="status">
-          <span class="visually-hidden">Memuat data...</span>
-        </div>
-        <p class="mt-2 text-muted fw-semibold">Memuat konten dinamis...</p>
-      </div>`;
-    this.renderState(containerId, skeletonHTML);
-  }
-
-  async loadProfileData() {
+  /* ---------- Profil + sertifikat ---------- */
+  async loadProfile() {
+    const box = document.getElementById('certificates-container');
+    this.showLoading(box, 2, 'col-lg-10');
     try {
-      const data = await ApiService.fetchProfile();
-      this.state.profile = data;
-      document.getElementById('profile-nim').textContent = `NIM: ${data.nim}`;
-      document.getElementById('profile-name').textContent = data.name;
-      document.getElementById('profile-title').textContent = data.title;
-      document.getElementById('profile-avatar').src = data.avatar;
+      const p = await ApiService.fetchProfile();
+      this.state.profile = p;
+      document.getElementById('profile-nim').textContent = `NIM: ${p.nim}`;
+      document.getElementById('profile-name').textContent = p.name;
+      document.getElementById('profile-title').textContent = p.title;
+      document.getElementById('profile-avatar').setAttribute('src', safeUrl(p.avatar) || 'profile.jpg');
+      const certs = p.certificates || [];
+      if (!certs.length) return this.showEmpty(box, 'Belum ada sertifikat yang ditampilkan.');
+      box.removeAttribute('aria-busy');
+      box.replaceChildren(...certs.map((c) => this.certCard(c)));
     } catch (err) {
-      console.error('Gagal memuat profil:', err);
+      this.showError(box, err, () => this.loadProfile());
     }
   }
 
-  async loadProjectsData() {
-    this.renderSkeleton('projects-container');
+  certCard(c) {
+    const link = safeUrl(c.link);
+    const info = [c.number && ['No. Sertifikat: ', c.number], c.issued && ['Penerbitan: ', c.issued]].filter(Boolean);
+    return el('div', { class: 'col-lg-10' },
+      el('div', { class: 'card cert-card p-4 shadow-lg' },
+        el('div', { class: 'row align-items-center gy-4' },
+          el('div', { class: 'col-md-5 text-center' },
+            el('img', { src: safeUrl(c.image), alt: c.title, loading: 'lazy', class: 'img-fluid rounded-3 border border-secondary shadow-sm' })),
+          el('div', { class: 'col-md-7 text-white' },
+            el('div', { class: 'd-flex align-items-center gap-2 mb-2' },
+              el('span', { class: 'cert-badge', text: 'Terverifikasi' }),
+              el('span', { class: 'text-muted small', text: c.duration })),
+            el('h4', { class: 'fw-bold text-white mb-1', text: c.title }),
+            el('p', { class: 'text-info fw-semibold mb-3', text: c.issuer }),
+            el('p', { class: 'text-light opacity-90 small mb-3 cert-quote', text: c.description }),
+            el('p', { class: 'text-muted small mb-3' }, ...info.flatMap(([k, v], i) =>
+              [el('strong', { text: k }), v, i < info.length - 1 ? el('br') : null])),
+            el('div', { class: 'd-flex flex-wrap gap-2 mb-3' },
+              ...(c.tags || []).map((t) => el('span', { class: 'badge bg-dark border border-secondary text-light', text: t }))),
+            link && el('a', { href: link, target: '_blank', rel: 'noopener noreferrer', class: 'btn btn-outline-info btn-sm rounded-pill px-3', text: 'Lihat Badge' })))));
+  }
+
+  /* ---------- Proyek: filter kategori + pencarian ---------- */
+  async loadProjects() {
+    const box = document.getElementById('projects-container');
+    this.showLoading(box, 3);
     try {
-      const projects = await ApiService.fetchProjects();
-      this.state.projects = projects;
-      this.state.filteredProjects = projects;
-      this.renderFilterButtons();
+      this.state.projects = await ApiService.fetchProjects();
+      this.renderFilters();
       this.renderProjects();
     } catch (err) {
-      const errorHTML = `
-        <div class="col-12">
-          <div class="alert alert-danger d-flex align-items-center" role="alert">
-            <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
-            <div><strong>Gagal memuat data portofolio!</strong> Terjadi kesalahan jaringan atau sumber data tidak ditemukan.</div>
-          </div>
-        </div>`;
-      this.renderState('projects-container', errorHTML);
+      this.showError(box, err, () => this.loadProjects());
     }
   }
 
-  renderFilterButtons() {
-    const categories = ['All', ...new Set(this.state.projects.map(p => p.category))];
-    const filterContainer = document.getElementById('project-filters');
-    if (!filterContainer) return;
-
-    filterContainer.innerHTML = categories.map(cat => `
-      <button class="btn btn-sm ${cat === this.state.activeCategory ? 'btn-info text-dark fw-bold' : 'btn-outline-info'} me-2 mb-2 filter-btn" data-category="${cat}">
-        ${cat}
-      </button>
-    `).join('');
-
-    filterContainer.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        this.state.activeCategory = e.target.getAttribute('data-category');
-        this.filterProjects();
-      });
-    });
+  visibleProjects() {
+    const { projects, category, query } = this.state;
+    const q = query.trim().toLowerCase();
+    return projects.filter((p) =>
+      (category === 'All' || p.category === category) &&
+      (!q || [p.title, p.description, ...(p.technologies || [])].join(' ').toLowerCase().includes(q)));
   }
 
-  filterProjects() {
-    if (this.state.activeCategory === 'All') {
-      this.state.filteredProjects = this.state.projects;
-    } else {
-      this.state.filteredProjects = this.state.projects.filter(p => p.category === this.state.activeCategory);
-    }
-    this.renderFilterButtons();
+  resetFilters() {
+    this.state.category = 'All';
+    this.state.query = '';
+    document.getElementById('project-search').value = '';
+    this.renderFilters();
     this.renderProjects();
   }
 
-  renderProjects() {
-    const container = document.getElementById('projects-container');
-    if (!container) return;
+  renderFilters() {
+    const wrap = document.getElementById('project-filters');
+    const cats = ['All', ...new Set(this.state.projects.map((p) => p.category))];
+    wrap.replaceChildren(...cats.map((cat) => {
+      const active = cat === this.state.category;
+      const b = el('button', { type: 'button', 'aria-pressed': String(active), text: cat,
+        class: `btn btn-sm me-2 mb-2 ${active ? 'btn-info text-dark fw-bold' : 'btn-outline-info'}` });
+      b.addEventListener('click', () => { this.state.category = cat; this.renderFilters(); this.renderProjects(); });
+      return b;
+    }));
+  }
 
-    // Menambahkan kelas Bootstrap justify-content-center agar kolom sisa otomatis di posisi tengah
-    container.classList.add('justify-content-center');
-
-    if (this.state.filteredProjects.length === 0) {
-      const emptyHTML = `
-        <div class="col-12 text-center py-5">
-          <i class="bi bi-folder-x fs-1 text-muted"></i>
-          <p class="mt-2 text-muted">Tidak ada proyek untuk kategori "${this.escapeHTML(this.state.activeCategory)}".</p>
-        </div>`;
-      this.renderState('projects-container', emptyHTML);
-      return;
-    }
-
-    container.innerHTML = this.state.filteredProjects.map(proj => `
-      <div class="col">
-        <div class="card h-100 shadow-sm border-0">
-          <img src="${this.escapeHTML(proj.thumbnail)}" class="card-img-top" alt="${this.escapeHTML(proj.title)}" style="height: 220px; object-fit: contain; background-color: #0d1117; padding: 12px;" onerror="this.onerror=null; this.src='assets/${this.escapeHTML(proj.thumbnail)}';">
-          <div class="card-body d-flex flex-column">
-            <span class="badge bg-info text-dark mb-2 align-self-start fw-bold">${this.escapeHTML(proj.category)}</span>
-            <h5 class="card-title fw-bold text-white">${this.escapeHTML(proj.title)}</h5>
-            <p class="card-text text-muted flex-grow-1">${this.escapeHTML(proj.description)}</p>
-            <button class="btn btn-outline-info btn-sm mt-3 btn-detail-project" data-id="${proj.id}">
-              <i class="bi bi-eye me-1"></i> Detail Proyek
-            </button>
-          </div>
-        </div>
-      </div>
-    `).join('');
-
-    container.querySelectorAll('.btn-detail-project').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const id = e.currentTarget.getAttribute('data-id');
-        this.openUniversalModal(id);
-      });
+  bindSearch() {
+    document.getElementById('project-search').addEventListener('input', (e) => {
+      this.state.query = e.target.value;
+      if (this.state.projects.length) this.renderProjects();
     });
   }
 
-  openUniversalModal(projectId) {
-    const proj = this.state.projects.find(p => p.id === projectId);
-    if (!proj) return;
-
-    document.getElementById('projectModalTitle').textContent = proj.title;
-    
-    const techBadges = proj.technologies.map(t => `<span class="badge bg-secondary me-1">${this.escapeHTML(t)}</span>`).join('');
-    
-    document.getElementById('projectModalBody').innerHTML = `
-      <div class="text-center bg-dark p-3 rounded mb-3">
-        <img src="${this.escapeHTML(proj.thumbnail)}" class="img-fluid rounded" alt="${this.escapeHTML(proj.title)}" style="max-height: 280px; object-fit: contain;" onerror="this.onerror=null; this.src='assets/${this.escapeHTML(proj.thumbnail)}';">
-      </div>
-      <div class="mb-2"><span class="badge bg-info text-dark fw-bold px-3 py-2">${this.escapeHTML(proj.category)}</span></div>
-      <p class="text-light opacity-90">${this.escapeHTML(proj.description)}</p>
-      <div class="mb-3 text-white">
-        <strong>Teknologi:</strong><br>${techBadges}
-      </div>
-      <div class="modal-metric-box p-3 rounded mb-3">
-        <i class="bi bi-graph-up-arrow me-2 text-info"></i><strong class="text-white">Metrik Hasil:</strong> <span class="text-light">${this.escapeHTML(proj.metrics)}</span>
-      </div>
-      <a href="${this.escapeHTML(proj.link)}" target="_blank" class="btn btn-sm btn-outline-info"><i class="bi bi-box-arrow-up-right me-1"></i> Buka Tautan Proyek</a>
-    `;
-
-    const modalEl = document.getElementById('universalProjectModal');
-    bootstrap.Modal.getOrCreateInstance(modalEl).show();
+  renderProjects() {
+    const box = document.getElementById('projects-container');
+    if (!this.state.projects.length) return this.showEmpty(box, 'Belum ada proyek untuk ditampilkan.');
+    const list = this.visibleProjects();
+    if (!list.length) return this.showEmpty(box, 'Tidak ada proyek yang cocok dengan filter.', () => this.resetFilters());
+    box.removeAttribute('aria-busy');
+    box.replaceChildren(...list.map((p) => {
+      const btn = el('button', { type: 'button', class: 'btn btn-outline-info btn-sm mt-3', 'data-id': p.id, text: 'Detail Proyek' });
+      btn.addEventListener('click', () => this.openModal(p.id));
+      return el('div', { class: 'col' },
+        el('div', { class: 'card h-100 shadow-sm border-0' },
+          el('img', { src: safeUrl(p.thumbnail), alt: p.title, loading: 'lazy', class: 'card-img-top thumb-img' }),
+          el('div', { class: 'card-body d-flex flex-column' },
+            el('span', { class: 'badge bg-info text-dark mb-2 align-self-start fw-bold', text: p.category }),
+            el('h5', { class: 'card-title fw-bold text-white', text: p.title }),
+            el('p', { class: 'card-text text-muted flex-grow-1', text: p.description }),
+            btn)));
+    }));
   }
 
-  async loadServicesData() {
+  /* ---------- Satu modal universal, isi disuntik per proyek ---------- */
+  openModal(id) {
+    const p = this.state.projects.find((x) => x.id === id);
+    if (!p) return;
+    document.getElementById('projectModalTitle').textContent = p.title;
+    const link = safeUrl(p.link);
+    document.getElementById('projectModalBody').replaceChildren(
+      el('div', { class: 'text-center bg-dark p-3 rounded mb-3' },
+        el('img', { src: safeUrl(p.thumbnail), alt: p.title, class: 'img-fluid rounded modal-img' })),
+      el('p', { class: 'text-light opacity-90', text: p.description }),
+      el('div', { class: 'mb-3' }, el('strong', { class: 'text-white d-block mb-1', text: 'Teknologi:' }),
+        ...(p.technologies || []).map((t) => el('span', { class: 'badge bg-secondary me-1', text: t }))),
+      el('div', { class: 'modal-metric-box p-3 rounded mb-3' },
+        el('strong', { class: 'text-white', text: 'Metrik Hasil: ' }), el('span', { class: 'text-light', text: p.metrics })),
+      link && el('a', { href: link, target: '_blank', rel: 'noopener noreferrer', class: 'btn btn-sm btn-outline-info', text: 'Buka Tautan Proyek' }));
+    bootstrap.Modal.getOrCreateInstance(document.getElementById('universalProjectModal')).show();
+  }
+
+  /* ---------- Katalog layanan -> dropdown form ---------- */
+  async loadServices() {
+    const sel = document.getElementById('floatingSelect');
     try {
-      const services = await ApiService.fetchServices();
-      this.state.services = services;
-      const selectEl = document.getElementById('floatingSelect');
-      if (selectEl) {
-        selectEl.innerHTML = '<option value="" selected disabled>Pilih Kategori...</option>' + 
-          services.map(s => `<option value="${s.id}">${this.escapeHTML(s.name)}</option>`).join('');
-      }
+      this.state.services = await ApiService.fetchServices();
+      sel.replaceChildren(el('option', { value: '', selected: 'selected', disabled: 'disabled', text: 'Pilih Kategori...' }),
+        ...this.state.services.map((s) => el('option', { value: s.id, text: s.name })));
     } catch (err) {
-      console.error('Gagal memuat katalog layanan:', err);
+      sel.replaceChildren(el('option', { value: '', text: 'Katalog gagal dimuat, muat ulang halaman' }));
+      sel.disabled = true;
     }
   }
 
-  setupEventListeners() {
+  /* ---------- Form: POST JSON tanpa reload ---------- */
+  bindForm() {
     const form = document.getElementById('serviceOrderForm');
-    if (!form) return;
-
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
-      if (!form.checkValidity()) {
-        e.stopPropagation();
-        form.classList.add('was-validated');
-        return;
-      }
-
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalText = submitBtn.innerHTML;
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
-
-      const formData = new FormData(form);
-      const payload = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        serviceId: formData.get('serviceId'),
-        message: formData.get('message'),
-        timestamp: new Date().toISOString()
+      if (!form.checkValidity()) { form.classList.add('was-validated'); return; }
+      const btn = form.querySelector('button[type="submit"]');
+      const label = btn.textContent;
+      btn.disabled = true;
+      btn.replaceChildren(el('span', { class: 'spinner-border spinner-border-sm me-2' }), 'Mengirim...');
+      const f = new FormData(form);
+      const service = this.state.services.find((s) => s.id === f.get('serviceId'));
+      const dto = {
+        title: `Order: ${service ? service.name : f.get('serviceId')}`.slice(0, 100),
+        body: String(f.get('message')).slice(0, 500),
+        name: String(f.get('name')).slice(0, 80),
+        email: String(f.get('email')).slice(0, 120)
       };
-
       try {
-        const response = await ApiService.submitServiceOrder(payload);
-        this.saveOrderToLocalStorage(payload);
-        this.showToastNotification('Berhasil!', response.message);
+        const res = await ApiService.submitOrder(dto);
+        this.saveOrder({ ref: res.id, service: dto.title, name: dto.name, at: new Date().toISOString() });
+        this.notify('Berhasil', `Pesanan terkirim (ID server: ${res.id}).`);
         form.reset();
         form.classList.remove('was-validated');
       } catch (err) {
-        this.showToastNotification('Gagal!', 'Terjadi kesalahan saat pengiriman form.', true);
+        this.notify('Gagal', err.message, true);
       } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
+        btn.disabled = false;
+        btn.textContent = label;
       }
     });
   }
 
-  saveOrderToLocalStorage(order) {
-    let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-    orders.push(order);
-    localStorage.setItem('user_orders', JSON.stringify(orders));
-    this.updateOrderBadge(orders.length);
+  /* ---------- localStorage: riwayat pesanan ---------- */
+  readOrders() {
+    try { return JSON.parse(localStorage.getItem(App.ORDER_KEY)) || []; } catch { return []; }
   }
 
-  loadOrdersFromStorage() {
-    let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-    this.updateOrderBadge(orders.length);
+  saveOrder(order) {
+    localStorage.setItem(App.ORDER_KEY, JSON.stringify([order, ...this.readOrders()].slice(0, 20)));
+    this.renderOrders();
   }
 
-  updateOrderBadge(count) {
+  renderOrders() {
+    const orders = this.readOrders();
     const badge = document.getElementById('orderCountBadge');
-    if (badge) {
-      badge.textContent = `${count} Pesanan`;
-      badge.classList.remove('d-none');
+    badge.textContent = `${orders.length} Pesanan`;
+    badge.classList.toggle('d-none', orders.length === 0);
+    document.getElementById('clearOrdersBtn').classList.toggle('d-none', orders.length === 0);
+    const ul = document.getElementById('orderHistory');
+    if (!orders.length) {
+      ul.replaceChildren(el('li', { class: 'list-group-item order-item text-muted', text: 'Belum ada pesanan.' }));
+      return;
     }
+    ul.replaceChildren(...orders.map((o) => el('li', { class: 'list-group-item order-item' },
+      el('strong', { text: o.service }),
+      el('div', { class: 'small text-muted', text: `${o.name} · ${new Date(o.at).toLocaleString('id-ID')} · ref #${o.ref}` }))));
   }
 
-  showToastNotification(title, message, isError = false) {
-    const toastEl = document.getElementById('liveToast');
-    const toastTitle = document.getElementById('toastTitle');
-    const toastBody = document.getElementById('toastBody');
+  notify(title, message, isError = false) {
+    const t = document.getElementById('liveToast');
+    document.getElementById('toastTitle').textContent = title;
+    document.getElementById('toastBody').textContent = message;
+    t.classList.toggle('bg-danger', isError);
+    t.classList.toggle('bg-success', !isError);
+    this.toast.show();
+  }
 
-    if (toastEl && toastTitle && toastBody) {
-      toastTitle.textContent = title;
-      toastBody.textContent = message;
-      toastEl.className = `toast align-items-center text-white ${isError ? 'bg-danger' : 'bg-success'} border-0`;
-      this.toast.show();
-    }
+  // Pengganti onerror inline (diblokir CSP): satu listener terdelegasi di fase capture.
+  bindImageFallback() {
+    document.addEventListener('error', (e) => {
+      if (e.target.tagName === 'IMG') e.target.classList.add('img-missing');
+    }, true);
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => new App().init());
