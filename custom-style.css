@@ -137,24 +137,6 @@ body::before {
   box-shadow: 0 8px 30px rgba(0, 242, 254, 0.25);
 }
 
-.cert-badge {
-  background: rgba(0, 242, 254, 0.1);
-  color: var(--neon-cyan);
-  border: 1px solid rgba(0, 242, 254, 0.3);
-  font-size: 0.8rem;
-  padding: 4px 12px;
-  border-radius: 50px;
-}
-
-.cert-quote {
-  border-left: 3px solid var(--neon-cyan);
-  padding-left: 12px;
-  font-style: italic;
-  background: rgba(0, 242, 254, 0.05);
-  padding-top: 8px;
-  padding-bottom: 8px;
-  border-radius: 0 8px 8px 0;
-}
 
 /* METRIC BOX IN MODAL - HITAM PEKAT */
 .modal-metric-box {
