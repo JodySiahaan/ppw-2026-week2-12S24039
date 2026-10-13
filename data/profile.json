@@ -1,0 +1,41 @@
+{
+  "name": "Jody Alfonso Siahaan",
+  "nim": "12S24039",
+  "title": "Saya Mahasiswa Sistem Informasi yang merancang dan membangun aplikasi web modern, memadukan logika rekayasa perangkat lunak dengan keahlian UI/UX.",
+  "avatar": "profile.jpg",
+  "bio": "Mahasiswa S1 Sistem Informasi Institut Teknologi Del.",
+  "certificates": [
+    {
+      "id": "cert-1",
+      "title": "National AI & Deep Learning Acceleration Bootcamp - Level Advanced",
+      "issuer": "Nalara Academy",
+      "duration": "96 Learning Hours",
+      "description": "Completed the Nalara Academy Level Advanced Bootcamp (96 Learning Hours, August 2026). Focused on pushing the boundaries of deep learning models, advanced AI architectures, and intelligent systems development.",
+      "number": "NLR-CERT-ADV-B01-0008",
+      "issued": "25 Agustus 2026",
+      "image": "nalara-cert.jpg",
+      "tags": [
+        "Deep Learning",
+        "AI Architectures",
+        "Intelligent Systems"
+      ],
+      "link": ""
+    },
+    {
+      "id": "cert-2",
+      "title": "AWS Academy Graduate - Generative AI Foundations",
+      "issuer": "AWS Academy",
+      "duration": "12 Hours Course",
+      "description": "Gaining insights into Generative AI concepts and cloud implementation through AWS has been an enriching experience. Looking forward to applying these skills to future projects and continuous learning in AI and Systems.",
+      "number": "",
+      "issued": "28 September 2026",
+      "image": "aws-cert.png",
+      "tags": [
+        "Generative AI",
+        "AWS Cloud",
+        "Machine Learning"
+      ],
+      "link": "https://www.credly.com/badges/d016fe53-20d0-42fe-9fa3-121f2b040d69"
+    }
+  ]
+}

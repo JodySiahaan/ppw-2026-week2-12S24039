@@ -1,0 +1,42 @@
+[
+  {
+    "id": "proj-1",
+    "title": "Sistem Informasi Loket",
+    "category": "Web App",
+    "description": "Sistem Informasi Loket adalah sistem berbasis web yang mengelola operasional loket PT. Parisma Jaya Trans Balige (PJT), mencakup pemesanan tiket, manajemen jadwal, dan pelacakan armada.",
+    "thumbnail": "pjt-loket.png",
+    "technologies": ["HTML5", "CSS Variables", "JavaScript ES6", "Bootstrap 5"],
+    "metrics": "Digitalisasi sistem operasional & tiket PJT Balige",
+    "link": "https://github.com"
+  },
+  {
+    "id": "proj-2",
+    "title": "Klasifikasi Model AI",
+    "category": "Machine Learning",
+    "description": "Model pembelajaran mesin yang memanfaatkan algoritma pemrosesan tingkat tinggi untuk mengidentifikasi pola data secara presisi.",
+    "thumbnail": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&auto=format&fit=crop&q=80",
+    "technologies": ["Python", "Scikit-Learn", "Jupyter Notebook", "Pandas"],
+    "metrics": "Akurasi model mencapai 94.2%",
+    "link": "https://github.com"
+  },
+  {
+    "id": "proj-3",
+    "title": "Toba-in Samosir",
+    "category": "UI/UX Design",
+    "description": "Tobain Samosir adalah sebuah aplikasi yang menawarkan layanan tour guide dan transportasi wisata di Pulau Samosir, Sumatera Utara. Aplikasi ini dirancang untuk membantu wisatawan, lokal maupun internasional, untuk menjelajahi berbagai destinasi wisata menarik di Samosir dengan sistem pemesanan yang praktis, aman, nyaman dan transparan.",
+    "thumbnail": "tobain-samosir.png",
+    "technologies": ["Figma", "UI/UX Research", "Wireframing", "Prototyping"],
+    "metrics": "Sistem pemesanan tur & transportasi wisata terpadu Samosir",
+    "link": "https://figma.com"
+  },
+  {
+    "id": "proj-4",
+    "title": "Desain Antarmuka Portal Toba",
+    "category": "UI/UX Design",
+    "description": "Prototipe antarmuka interaktif portal informasi pariwisata yang menerapkan Jesse James Garrett Framework.",
+    "thumbnail": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=600&auto=format&fit=crop&q=80",
+    "technologies": ["Figma", "Design System", "Bootstrap Grid", "Prototyping"],
+    "metrics": "Skor Usability System (SUS) 85/100",
+    "link": "https://figma.com"
+  }
+]
